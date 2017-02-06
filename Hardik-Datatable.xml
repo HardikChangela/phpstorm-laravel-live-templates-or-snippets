@@ -1,0 +1,28 @@
+<templateSet group="Hardik-Datatable">
+  <template name="Datatable::controller" value=" if ($request-&gt;ajax()) {&#10;    $records = Newbusines::select(['id','business_name','street_no','street_name','suburb','contact_phone','contact_name','email','comment']);&#10;   return Datatables::of($records)&#10;         -&gt;addColumn('approval', function ($record) {&#10;             return '&lt;a href=&quot;'.url('web/approval/'.$record-&gt;id).'&quot; class=&quot;btn btn-info&quot; onclick=&quot;return confirm(&quot;are you sure you want to approve?&quot;)&quot;&gt;approval&lt;/a&gt;';&#10;         })&#10;         -&gt;addColumn('action', function ($record) {&#10;             //return '&lt;i class=&quot;fa fa-trash-o text-success delete-data&quot; aria-hidden=&quot;true&quot; id=&quot;'.$record-&gt;id.'&quot;&gt;&lt;/i&gt;';&#10;             return ' &amp;nbsp; &lt;a href=&quot;'.url('admin/$NAME$/'.$record-&gt;id.'/edit').'&quot; data-toggle=&quot;modal&quot; data-target=&quot;#model_ajax&quot;&gt; &lt;i class=&quot;fa fa-pencil-square-o text-info&quot; aria-hidden=&quot;true&quot; title=&quot;Edit&quot; data-toggle=&quot;tooltip&quot; style=&quot;cursor:pointer&quot;&gt;&lt;/i&gt;&lt;/a&gt;' .&#10;             ' &amp;nbsp; &lt;i class=&quot;fa fa-trash-o text-danger delete-data&quot; data-id=&quot;' . $record-&gt;id . '&quot;  aria-hidden=&quot;true&quot; title=&quot;Delete&quot; data-toggle=&quot;tooltip&quot; style=&quot;cursor:pointer&quot;&gt;&lt;/i&gt;';&#10;         })&#10;         -&gt;make(true);&#10;}$END$" description="Datatable Controller Code" toReformat="false" toShortenFQNames="true">
+    <variable name="NAME" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="PHP" value="true" />
+      <option name="PHP Comment" value="true" />
+    </context>
+  </template>
+  <template name="Datatable::init" value="&lt;script type=&quot;text/javascript&quot;&gt;&#10;    $( document ).ready(function() {&#10;        var oTable = $('#example1').DataTable({&#10;            processing: true,&#10;            serverSide: true,&#10;            ajax: '{{ url('admin/$NAME$')  }}',&#10;            columns: [&#10;                {data: 'id', name: 'menu_categories.id'},&#10;                {data: 'restaurant.restaurant_name', name: 'restaurant.restaurant_name'},&#10;                {data: 'name', name: 'menu_categories.name'},&#10;                {data: 'action', name: 'action',searchable: false},&#10;            ]&#10;        });&#10;&#10;        $(&quot;#example1&quot;).on('click', '.delete-data', function () {&#10;            var obj = $(this);&#10;            var id = $(this).attr('data-id');&#10;&#10;            if (confirm(&quot;Are you sure to Delete Data?&quot;)){&#10;                $.ajax({&#10;                    type: &quot;DELETE&quot;,&#10;                    url: &quot;{{ url('admin/$NAME$')  }}/&quot; + id,&#10;                    data: {&#10;                        id: id,&#10;                        _token: &quot;{{ csrf_token() }}&quot;&#10;                    },&#10;                    dataType: 'json',&#10;                    beforeSend: function () {&#10;                        $(this).attr('disabled', true);&#10;                        $('.alert .msg-content').html('');&#10;                        $('.alert').hide();&#10;                    },&#10;                    success: function (resp) {&#10;                        oTable.ajax.reload();&#10;                        alert(resp.message);&#10;                    },&#10;                    error: function (e) {&#10;                        alert('Error: ' + e);&#10;                    }&#10;                });&#10;            }&#10;        });&#10;    });&#10;&lt;/script&gt;$END$" description="Initialied Datatable in Javascript" toReformat="false" toShortenFQNames="true">
+    <variable name="NAME" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="HTML_TEXT" value="true" />
+      <option name="HTML" value="true" />
+      <option name="JAVA_SCRIPT" value="true" />
+      <option name="JS_EXPRESSION" value="true" />
+      <option name="JSX_HTML" value="true" />
+      <option name="JS_STATEMENT" value="true" />
+      <option name="PHP" value="false" />
+    </context>
+  </template>
+  <template name="Datatable::destroy" value="$menu = Menu::findOrFail($id);&#10;$menu-&gt;delete();&#10;&#10;$data['message'] = 'Deleted Data successfully!';&#10;return Response::json($data);" description="Destroy Data" toReformat="false" toShortenFQNames="true">
+    <context>
+      <option name="PHP" value="true" />
+      <option name="PHP Comment" value="true" />
+      <option name="PHP String Literal" value="true" />
+    </context>
+  </template>
+</templateSet>

@@ -40,9 +40,10 @@
       <option name="PHP" value="true" />
     </context>
   </template>
-  <template name="Form::text" value="&lt;div class=&quot;form-group {{ $errors-&gt;has('$NAME$') ? ' has-error' : '' }}&quot;&gt;&#10;    &lt;label class=&quot;control-label&quot;&gt;$DEFAULT$ &lt;span class=&quot;text-danger&quot;&gt;*&lt;/span&gt;&lt;/label&gt;&#10;    {!! Form::text('$NAME$',null, ['class' =&gt; 'form-control']) !!}&#10;    &lt;span class=&quot;help-block&quot; id=&quot;error_$NAME$&quot;&gt;&lt;strong&gt;{{ $errors-&gt;first('$NAME$') }}&lt;/strong&gt;&lt;/span&gt;&#10;&lt;/div&gt;$END$" description="Generate a Text Input element (name, default, attributes)" toReformat="false" toShortenFQNames="true">
-    <variable name="NAME" expression="" defaultValue="&quot;name&quot;" alwaysStopAt="true" />
+  <template name="Form::text" value="&lt;div class='form-group {{ $errors-&gt;has('$NAME$') ? ' has-error' : '' }}'&gt;&#10;    &lt;label class='control-label'&gt;$NAME$&lt;span class='text-red'&gt;*&lt;/span&gt;&lt;/label&gt;&#10;    {!! Form::text('$NAME$', '$DEFAULT$'$OPTION$) !!}&#10;    &lt;span class='help-block' id='error_$NAME$'&gt;&lt;strong&gt;{{ $errors-&gt;first('$NAME$') }}&lt;/strong&gt;&lt;/span&gt;&#10;&lt;/div&gt;$END$" description="Generate a Text Input element (name, default, attributes)" toReformat="false" toShortenFQNames="true">
+    <variable name="NAME" expression="" defaultValue="&quot;email&quot;" alwaysStopAt="true" />
     <variable name="DEFAULT" expression="capitalize(NAME)" defaultValue="" alwaysStopAt="true" />
+    <variable name="OPTION" expression="" defaultValue="&quot;, ['class' =&gt; 'form-control']&quot;" alwaysStopAt="true" />
     <context>
       <option name="HTML_TEXT" value="true" />
       <option name="HTML" value="true" />
@@ -59,10 +60,10 @@
       <option name="PHP" value="true" />
     </context>
   </template>
-  <template name="Form::textarea" value="&lt;div class=&quot;form-group {{ $errors-&gt;has('$NAME$') ? ' has-error' : '' }}&quot;&gt;&#10;    &lt;label class=&quot;control-label&quot;&gt;$DEFAULT$ &lt;span class=&quot;text-danger&quot;&gt;*&lt;/span&gt;&lt;/label&gt;&#10;    {!! Form::textarea('$NAME$',null, ['class' =&gt; 'form-control','rows'=&gt;'$ROWS$']) !!}&#10;    &lt;span class=&quot;help-block&quot; id=&quot;error_$NAME$&quot;&gt;&lt;strong&gt;{{ $errors-&gt;first('$NAME$') }}&lt;/strong&gt;&lt;/span&gt;&#10;&lt;/div&gt;$END$" description="Generate a Textarea Input element (name, default, attributes)" toReformat="false" toShortenFQNames="true">
+  <template name="Form::textarea" value="{!! Form::textarea('$NAME$', '$DEFAULT$'$OPTION$) !!}$END$" description="Generate a Textarea Input element (name, default, attributes)" toReformat="false" toShortenFQNames="true">
     <variable name="NAME" expression="" defaultValue="&quot;body&quot;" alwaysStopAt="true" />
     <variable name="DEFAULT" expression="capitalize(NAME)" defaultValue="" alwaysStopAt="true" />
-    <variable name="ROWS" expression="" defaultValue="&quot;2&quot;" alwaysStopAt="true" />
+    <variable name="OPTION" expression="" defaultValue="&quot;, ['class' =&gt; 'form-control']&quot;" alwaysStopAt="true" />
     <context>
       <option name="HTML_TEXT" value="true" />
       <option name="HTML" value="true" />

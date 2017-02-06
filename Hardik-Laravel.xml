@@ -1,0 +1,11 @@
+<templateSet group="Hardik-Laravel">
+  <template name="Cont::image" value="$input = $request-&gt;all();&#10;if ($photo = $request-&gt;file('$IMAGE$')) {&#10;    $root = base_path() . '/public/resource/$FOLDER$/';&#10;    $name = str_random(20) . &quot;.&quot; . $photo-&gt;getClientOriginalExtension();&#10;    if (!file_exists($root)) {&#10;        mkdir($root, 0777, true);&#10;    }&#10;    $photo-&gt;move($root, $name);&#10;    File::delete('../public/resource/$FOLDER$/' . $event['image']);&#10;    $img = Image::make('../public/resource/$FOLDER$/'.$name)-&gt;resize(400,400)-&gt;save();&#10;    $input['$IMAGE$'] = $name;&#10;}$END$" description="Upload Image" toReformat="false" toShortenFQNames="true">
+    <variable name="IMAGE" expression="" defaultValue="image" alwaysStopAt="true" />
+    <variable name="FOLDER" expression="" defaultValue="folde" alwaysStopAt="true" />
+    <context>
+      <option name="PHP" value="true" />
+      <option name="PHP Comment" value="true" />
+      <option name="PHP String Literal" value="true" />
+    </context>
+  </template>
+</templateSet>
